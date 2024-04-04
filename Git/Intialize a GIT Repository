@@ -1,0 +1,30 @@
+
+Steps to create new repo
+
+1.  Move to the working directory,
+        cd /path/to/your/existing/code 
+    Then run the below command;
+        git init
+        ls -a
+
+2.  create new txt file and the content
+        touch story1.txt 
+        echo "This is a beautiful story" >> story1.txt
+
+3.  Check the status using below command;
+        git status
+    Result;
+        On branche Master
+        No commits yet
+        Untracked files;
+        story1.txt
+        nothing added to the commits but untracked files present
+
+4.  Add tothe staging area using;
+        git add story1.txt
+
+5.  Commit files
+        git commit -m "Added first story"
+
+
+

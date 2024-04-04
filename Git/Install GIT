@@ -1,0 +1,17 @@
+Install Git
+
+For CentOS;
+  yum install git
+
+For Ubuntu;
+  sudo apt-get update
+  sudo apt-get install git
+
+For Windows;
+  https://git-for-windows.github.io/
+
+Check Git Version
+  git --version
+
+References
+  https://www.atlassian.com/git/tutorials/install-git

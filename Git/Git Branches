@@ -1,0 +1,23 @@
+#Create a new branch
+
+$ git branch sarah
+
+# switch to an existing branch
+
+$ git checkout sarah
+
+# Create a new branch and Switch to it
+
+$ git checkout -b max
+
+# Delete a branch
+
+$ git branch -d max
+
+# List all branches of 
+
+$ git branch
+
+# Merge a branch
+
+$ git merge "branch-name"
