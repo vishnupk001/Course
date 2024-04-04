@@ -1,0 +1,36 @@
+
+  Step to install and setup Jenkins
+
+
+1. Install Jenkins (before we used a jenkins image which is now deprecated <docker run jenkins>. Instead of that, we have to use jenkins/jenkins.)
+
+#docker run jenkins/jenkins
+
+2. Check the port and internal ip address for testing using browser.
+
+#docker ps (to find port)
+
+#docker inspect <container_id>. (Check the network section)
+
+Then try with browser
+
+Next, try to access Jenkins using external IP address by mapping the port.
+
+#docker run -p 8080:8080 jenkins/jenkins 
+
+Later try with external IP address
+
+3. Installing Jenkins with volume mapping to the local.
+
+#docker run -p 8080:8080 -v /root/my-jenkins-data:/var/jenkins_home -u root jenkins/jenkins
+
+This will help to store the data in local directory and we can use the data when creating a new container.
+
+
+
+
+
+
+
+
+

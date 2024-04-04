@@ -1,0 +1,25 @@
+
+
+Advanced Docker Run Features
+
+
+1. Installing Ubuntu and showing the version
+
+#docker run ubuntu cat /etc/*release*
+
+2. Installing ubuntu with specific version using tag (You can find tag from hub.docker.com)
+
+#docker run ubuntu:17.10 cat /etc/*release*
+
+3. Running the container in detach mode using the parameter -d
+
+#docker run -d ubuntu sleep 1500
+
+4. Attach to the container
+
+#docker attach <container-id>
+
+5. Running timer using run command
+
+#docker run -d timer
+
