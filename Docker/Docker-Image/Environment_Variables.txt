@@ -1,0 +1,49 @@
+Simple learning of web application code.
+
+Setting the background colour.
+
+Code for colour in the app.py file.
+
+----------------
+color = "red"
+----------------
+
+To change the colour while running the app, use the below code.
+
+--------------------------
+color = os.environ.get9'APP_COLOR')
+---------------------------
+
+Run the command for the web app
+
+# docker run -e APP_COLOR=blue simple-webapp-color
+
+Inspect Environment Variables
+
+#docker inspect <container_name>
+
+
+
+1. Run a container named blue-app using image kodekloud/simple-webapp and set the environment variable APP_COLOR to blue. Make the application available on port 38282 on the host. The application listens on port 8080.
+
+Name: blue-app
+Image: kodekloud/simple-webapp
+ENV Variable: APP_COLOR=blue
+
+A:  Run the command : docker run -p 38282:8080 --name blue-app -e APP_COLOR=blue -d kodekloud/simple-webapp
+
+To know the env field from within a webapp container, run docker exec -it blue-app env
+
+
+2.  Deploy a mysql database using the mysql image and name it mysql-db.
+
+Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password.
+
+Name: mysql-db
+Image: mysql
+Env: MYSQL_ROOT_PASSWORD=db_pass123
+
+A:  Run the command: docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db mysql
+
+To know the env field from within a mysql-db container, run docker exec -it mysql-db env
+

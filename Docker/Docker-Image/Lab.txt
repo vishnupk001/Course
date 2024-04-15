@@ -1,0 +1,41 @@
+1. Build a docker image using the Dockerfile and name it webapp-color. No tag to be specified.
+
+A: Move to the directory first by using the cd command and verify the path of the working directory from pwd command :-
+
+$ cd /root/webapp-color/
+$ pwd
+/root/webapp-color
+
+Now, run the docker build command within that directory :-
+
+$ docker build -t webapp-color . 
+
+NOTE: At the end of the command, we used the "." (dot) symbol which indicates for the current directory, so you need to run this command from within the directory that has the Dockerfile.
+
+
+2. Run an instance of the image webapp-color and publish port 8080 on the container to 8282 on the host.
+
+Container with image 'webapp-color'
+
+Container Port: 8080
+
+Host Port: 8282
+
+A: docker run -p 8282:8080 webapp-color
+
+3. Build a new smaller docker image by modifying the same Dockerfile and name it webapp-color and tag it lite.
+
+Hint: Find a smaller base image for python:3.6. Make sure the final image is less than 150MB.
+
+A: In the webapp-color directory, run the ls -l command to list the Dockerfile and other files.
+
+And modify Dockerfile to use python:3.6-alpine image and then build using docker build -t webapp-color:lite .
+
+4. Run an instance of the new image webapp-color:lite and publish port 8080 on the container to 8383 on the host.
+
+Container with image 'webapp-color:lite'
+Container to publish port 8080 to 8383
+
+A: Command: docker run -p 8383:8080 webapp-color:lite
+
+To run the container in the background, add the -d flag.

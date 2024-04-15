@@ -1,0 +1,60 @@
+
+• What am I containerising?
+
+• How to create my own image?
+
+First create a docker file named "Docker File"
+
+Inside the docker file, write the code. Here there are two parts in the docker file. One is "INSTRUCTION" and second is "ARGUMENT".
+
+Example:
+
+Docker file:-
+
+---------------------------------------------------------
+FROM Ubuntu                                              1. OS - Ubuntu
+                                                         
+                                                         2. Update apt repo
+RUN apt-get update                                       3. Install dependencies using apt
+RUN apt-get install python                               
+
+RUN pip install flask
+RUN pip install flask-mysql                              4. Install Python dependencies using apt
+
+COPY . /opt/source-code                                  5. Copy source code to /opt folder
+
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run   6. Run the web server using "flask" command
+---------------------------------------------------------
+
+Here Instruction - FROM, RUN, COPY, ENTRYPOINT
+
+Argument - Ubuntu, apt-get update etc..
+
+
+Run the Docker file using below command.
+
+#docker build Dockerfile -t mmumshad/my -custom-app
+
+To make it availbale in Docker public registry, use the below command.
+
+#docker push mmumshad/my-custom-app
+
+
+• Layered architecture
+
+Docker File:-
+                                                        #docker build Dockerfile -t mmumshad/my -custom-app 
+------------------------------------------------------- 
+FROM Ubuntu                                              1. Layer 1. Base Ubuntu Layer
+                                                         
+                                                         
+RUN apt-get update && apt-get install python             2. Layer 2. Changes in apt packages
+                               
+
+RUN pip install flask flask-mysql                        3. Layer 3. Changes in pip packages
+                               
+
+COPY . /opt/source-code                                  4. Layer 4. Source code
+
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run   5. Layer 5. Update Entrypoint with "flask" command
+---------------------------------------------------------
