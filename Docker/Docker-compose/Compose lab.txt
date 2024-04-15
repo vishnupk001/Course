@@ -1,0 +1,50 @@
+
+
+1.  First create a redis database container called redis, image redis:alpine.
+
+if you are unsure, check the hints section for the exact commands.
+
+A: docker run --name redis -d redis:alpine
+
+2.  Next, create a simple container called clickcounter with the image kodekloud/click-counter, link it to the redis container that we created in the previous task and then expose it on the host port 8085
+
+The clickcounter app run on port 5000.
+if you are unsure, check the hints section for the exact commands.
+
+a) clickcounter exposed on the correct HostPort?
+b) clickcounter linked to the redis container ?
+
+A:  docker run -d --name=click-counter   --link redis:redis -p 5000:8085 kodekloud/click-counter
+
+
+3.  Let's clean up the actions carried out in previous steps. Delete the redis and the clickcounter containers.
+
+A: To stop the containers: docker stop <CONTAINER-NAME>
+
+To delete the containers: docker rm <CONTAINER-NAME>
+
+
+4.  Create a docker-compose.yml file under the directory /root/clickcounter. Once done, run docker-compose up.
+
+The compose file should have the exact specification as follows -
+
+redis service specification - Image name should be redis:alpine.
+clickcounter service specification - Image name should be kodekloud/click-counter, app is run on port 5000 and expose it on the host port 8085 in the compose file.
+
+
+
+A: Use the below compose file:
+--------------------------------------
+services:
+  redis:
+    image: redis:alpine
+  clickcounter:
+    image: kodekloud/click-counter
+    ports:
+    - 8085:5000
+version: '3.0'
+--------------------------------------
+
+Then run a docker-compose up -d command.
+
+To run containers in a background, added -d flag.

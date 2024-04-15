@@ -1,0 +1,249 @@
+What is docker compose?
+
+Docker Compose is a tool you can use to define and share multi-container applications. This means you can run a project with multiple containers using a single source. 
+
+To configure the orchestration, Docker Compose uses a docker-compose. yml file. It specifies what images are required, what ports they need to expose, whether they have access to the host filesystem, what commands should be run when they start up, and so on.
+
+Example: 
+
+Running docker commands individulay
+
+-------------------------------------
+docker run mmumshad/simple-webapp
+docker run mongodb
+docker run redis: alpine
+docker run ansible
+Public Docker registry - dockerhub
+-------------------------------------
+
+
+docker-compose.yml
+
+-------------------------------------
+services:
+    web :
+        image: "mmumshad/simple-webapp"
+    database:
+        image: "mongodb" 
+    messaging:
+        image: "redis:alpine" 
+    orchestration:
+        image: "unusable"
+--------------------------------------
+
+Explaining with the example of vote app using docker run command and docker compose.
+
+
+docker run -d --name=redis redis
+
+docker run -d --name=db postgres
+
+docker run -d --name=vote -p 5000:80 voting-app
+
+docker run -d --name=result -p 5001:80 result-app
+
+docker run -d --name=worker worker
+
+Here we just run each services. But we need to connect the service with another one. For that we are using "--link" parameter.
+
+
+docker run -d --name=redis redis
+
+docker run -d --name=db postgres: 9.4
+
+docker run -d --name=vote -p 5000:80 --link redis:redis voting-app
+docker run -d --name=result -p 5001:80 --link db:db result-app
+docker run -d --name=worker --link db:db --link redis:redis worker
+
+docker-compose. yml
+--------------------------------------------------
+
+redis:
+  image: redis
+db:
+  image: postgres: 9.4 
+vote:
+  image: voting-app 
+  ports:
+    - 5000:80
+  links:
+    - redis 
+result:
+   image: result-app
+   ports:
+     -5001:80
+   links:
+     - db
+worker:
+   image: worker
+   links:
+     - redis
+     - db
+
+---------------------------------------------------
+
+
+To execute the file by running ;
+
+# docker-compose up
+
+
+
+Docker Compose - bulid
+
+To access the code from a location.
+
+--------------------------------------------------
+
+redis:
+  image: redis
+db:
+  image: postgres: 9.4 
+vote:
+  build: ./vote
+  ports:
+    - 5000:80
+  links:
+    - redis 
+result:
+   build: ./result
+   ports:
+     -5001:80
+   links:
+     - db
+worker:
+   build: ./worker
+   links:
+     - redis
+     - db
+
+---------------------------------------------------
+
+
+Docker Compose - versions
+
+version:1
+
+Compose files that do not declare a version are considered "version 1". In those files, all the services are declared at the root of the document. Version 1 is supported by Compose up to 1.6.x** and has been deprecated. Version 1 files cannot declare named volumes, networks or build arguments.
+
+docker-compose. yml
+---------------------------
+redis:
+    image: redis
+db :
+    image: postgres: 9.4 
+vote:
+    image: voting-app 
+    ports:
+        - 5000:80
+    links:
+         - redis
+----------------------------
+
+Version:2
+
+In version 2, we need to specify the version number on the top of the code(before "service") like "version:2"
+
+Also version 2 is using dedicated network for all the service using in it. So that no need to specify links.
+
+Next you need to specify the service which is starting first. For that we use "depends_on" parameter.
+
+docker-compose. yml
+---------------------------
+version: 2
+service:
+    redis:
+        image: redis
+    db :
+        image: postgres: 9.4 
+    vote:
+        image: voting-app 
+        ports:
+           - 5000:80
+        depends_on:
+            - redis
+ 
+----------------------------
+
+Here we divided the vote application into two section. That is front end and backend.
+
+Here, front end is voting app(python) and result app (node.js)
+
+Backend is redis, db, worker
+
+
+Lets check the compose file after dividing as frontend and backend.
+
+
+docker-compose. yml
+------------------------------------
+version: 2
+service:
+    redis:
+        image: redis
+        networks:   
+               - back-end
+
+    db :
+        image: postgres: 9.4 
+         networks:   
+               - back-end
+    worker:
+        image: worker
+        networks: 
+              - back-end
+
+    vote:
+        image: voting-app 
+        networks:   
+               - front-end
+               - back-end
+
+     result: 
+         image: result
+         networks:   
+               - front-end
+               - back-end
+ 
+networks:
+     front-end: 
+     back-end:
+---------------------------------------
+
+Version 3
+
+docker-compose.yml
+----------------------------------------
+version: "3"
+
+services:
+
+   redis:
+      image: redis
+      
+
+   db:
+      image: postgres: 9.4
+      environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+   vote:
+      image: voting-app
+      ports:
+        - 5000:80
+
+   worker:
+       image: worker-app
+
+   result:
+       image: result-app 
+       ports:
+         - 5001:80
+---------------------------------------------
+
+
+
+
+
+
