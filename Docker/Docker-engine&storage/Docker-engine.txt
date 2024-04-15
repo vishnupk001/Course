@@ -1,0 +1,47 @@
+
+Docker Engine
+
+
+Docker Engine is an open source containerization technology for building and containerizing your applications. 
+
+1. A server with a long-running daemon process dockerd. (Docker daemon)
+2. APIs which specify interfaces that programs can use to talk to and instruct the Docker daemon.(REST API)
+3. A command line interface (CLI) client docker. (Docker CLI)
+
+The CLI uses Docker APIs to control or interact with the Docker daemon through scripting or direct CLI commands. Many other Docker applications use the underlying API and CLI. The daemon creates and manages Docker objects, such as images, containers, networks, and volumes.
+
+Docker CLI can intract with REST API  for another host using REST API host IP address
+
+Syntax
+-------------------------------------------
+# docker -H=remote-docker-engine:2375
+-------------------------------------------
+
+Run nginx on docker host from another host.
+
+Eg:- docker -H=10.123.2.1:2375 run nginx
+
+
+Containerization
+
+Docker uses namespace to isolate workspace.
+
+1. Process ID
+2. Network
+3. InterProcess
+4. Mount
+5. Unix Timesharing
+
+
+Namespace helps to run the same PID in different container in same host.
+
+cgroups
+
+cgroups helps to limit the usage of resources like cpu and memory of each container. 
+
+Run the below commands to use limiting resources.
+
+#docker run --cpus=.5 ubuntu(container_name)
+#docker run --memory=100m ubuntu(container_name)
+
+

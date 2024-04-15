@@ -1,0 +1,89 @@
+
+
+Docker File System
+
+When you install docker it creates the folder structure at /var/lib/docker. 
+
+Docker file location:
+
+/var/lib/docker, under this folder have multiple folders called:
+
+1. aufs
+2. Containers
+3. Image
+4. Volumes
+   All datas will stored in the  correspondent folders.
+---------------------------------------------------------------------------------
+Docker Layered Architecture
+
+Docker File:-
+                                                        #docker build Dockerfile -t mmumshad/my -custom-app 
+------------------------------------------------------- 
+FROM Ubuntu                                              1. Layer 1. Base Ubuntu Layer
+                                                         
+                                                         
+RUN apt-get update && apt-get install python             2. Layer 2. Changes in apt packages
+                               
+
+RUN pip install flask flask-mysql                        3. Layer 3. Changes in pip packages
+                               
+
+COPY . /opt/source-code                                  4. Layer 4. Source code
+
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run   5. Layer 5. Update Entrypoint with "flask" command
+---------------------------------------------------------
+
+Copy-on-write
+
+The copy-on-write (CoW) strategy. Copy-on-write is a strategy of sharing and copying files for maximum efficiency.
+
+
+Image layers
+
+File in image layers is read only file, can't modify.
+
+Container Layer
+
+Files in the container layer is read write files so that anyone can modify the files. Here we apply copy-on-write strategy for copying file from image layer which you want to modify.
+
+
+----------------------------------------------------------------------------------
+Volume Mounting
+
+
+To create a data directory in volume folder  use the below command.
+
+#docker volume create data_volume
+
+To mount the volume directory using;
+
+#docker run -v data_volume:/var/lib/mysql mysql
+
+There are two type of mounting called volume mount and bind mount.
+
+Volume mount mounts a volume from the volume directory
+
+Eg:- #docker run -v data_volume:/var/lib/mysql mysql
+
+
+Bind mount mounts a directory from any location on the Docker host.
+
+Eg:- #docker run -v /data/mysql:/var/lib/mysql mysql
+
+--mount 
+
+We can use "--mount" parameter instead of "-v". Here we can specify the type, source and target.
+
+Eg:- docker run \
+--mount type=bind, source=/data/mysql, target=/var/lib/mysql mysql
+------------------------------------------------------------------------------------
+Some storage divers:
+
+1. AUFS
+2. ZFS
+3. BTRFS
+4. Device Mapper
+5. Overlay
+6. Overlay2
+
+
