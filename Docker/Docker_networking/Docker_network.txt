@@ -1,0 +1,45 @@
+
+Docker Networking
+
+When we install Docker, it creates three networks automatically. There are:
+
+Bridge :- a bridge network uses a software bridge which lets containers connected to the same bridge network communicate, while providing isolation from containers that aren't connected to that bridge network.
+
+#docker run ubuntu 
+
+None :-  If you want to completely isolate the networking stack of a container, you can use the --network none flag when starting the container. Within the container, only the loopback device is created.
+
+#docker run ubuntu --network=none
+
+Host :-  this network automatically access the external port same as the internal port. Without using port mapping.
+
+#docker run ubuntu --network=host
+
+User-defined networks
+
+To set a custom isolated network (when we using different range of internal ips) 
+--------------------------------
+#docker network create \
+--driver bridge \
+--subnet 182.18.0.0/16 
+custom-isolated-network
+---------------------------------
+
+To list the docker networks
+
+#docker network ls 
+
+# docker inspect <container id or name>
+
+
+Embedded DNS
+
+To use container name instead of IPs.
+
+Eg:- mysql.connect(mysql)
+
+DNS server always using 127.0.0.1
+
+DNS server creates namespace for each service.
+
+
