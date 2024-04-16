@@ -1,0 +1,13 @@
+
+
+1. Run a mysql container named mysql-db using the mysql image. Set database password to db_pass123
+
+Note: Remember to run it in the detached mode.
+
+A: docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
+
+Run a mysql container again, but this time map a volume to the container so that the data stored by the container is stored at /opt/data on the host.
+
+2. Use the same name : mysql-db and same password: db_pass123 as before. Mysql stores data at /var/lib/mysql inside the container.
+
+A: Run the command: docker run -v /opt/data:/var/lib/mysql -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
