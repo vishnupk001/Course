@@ -1,14 +1,5 @@
 # Day 2 – Hosting a Website on EC2
 
-## Firewall Basics
-- **Netfilter** – Core firewall framework in Linux  
-- Tools built on Netfilter:
-  - iptables
-  - CSF (ConfigServer Firewall)
-- **Security Group** = Firewall in AWS (controls inbound & outbound traffic)
-
----
-
 ## Step 1: Create EC2 Instance (Web Server)
 - Select **AMI (Amazon Machine Image)**
 - Choose **Instance Type**
