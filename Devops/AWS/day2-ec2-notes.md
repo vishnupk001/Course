@@ -30,7 +30,7 @@ sudo yum install httpd -y
 
 ### Start service
 ```bash
-sudo systemctl start httpd
+sudo systemctl restart httpd
 ```
 
 ### Enable service on boot
