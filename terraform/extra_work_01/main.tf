@@ -240,6 +240,11 @@ resource "aws_instance" "webserver" {
   }
 }
 
+# ============================================================
+# 15. Route53 DNS record
+# ============================================================
+# Creates a Route53 DNS record that points the domain to the ALB.
+
 resource "aws_route53_record" "www" {
   zone_id = data.aws_route53_zone.domain.zone_id
   name    = "${var.hostname}.${var.domain_name}"
