@@ -1,0 +1,5 @@
+Linux is a free and open source operating system kernel created by Linus Torvalds in 1991. It acts as the core component of an operating system and is responsible for managing hardware resources, memory, processes, and communication between software and hardware. Today, Linux is widely used in servers, cloud platforms, embedded devices, supercomputers, and personal computers because of its stability, security, and flexibility.
+
+The GNU Project was started by Richard Stallman in 1983 with the goal of creating a complete free operating system. Over the years, the project developed many essential software components, including the GNU Compiler Collection, Bash shell, Core Utilities, and many programming tools. These programs form the foundation of many operating systems used around the world.
+
+When the Linux kernel was combined with the software developed by the GNU Project, it became possible to build a complete and usable operating system. Many popular Linux distributions package the Linux kernel together with GNU tools, system libraries, package managers, and desktop environments. Examples include Ubuntu, Debian, Fedora, and Rocky Linux.

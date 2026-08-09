@@ -1,0 +1,5 @@
+import pprint
+
+d= {'Records': [{'eventVersion': '2.5', 'eventSource': 'aws:s3', 'awsRegion': 'ap-south-1', 'eventTime': '2026-07-23T13:30:05.937Z', 'eventName': 'ObjectCreated:Put', 'userIdentity': {'principalId': 'AQAY2T4VG23S4'}, 'requestParameters': {'sourceIPAddress': '103.182.166.210'}, 'responseElements': {'x-amz-request-id': '9ZN82GV1ZFXQC8RT', 'x-amz-id-2': '7qVOa/eNLd7c/8CG9ujg0AzaP52qCof+rF2kAUFdeOVSBedyvTRkFf6EIXmfph5Jn4lvwg8BVvoX2mC8t1I5S4V6VhRGrt8O'}, 's3': {'s3SchemaVersion': '1.0', 'configurationId': '88a9c7d5-ed1e-4199-86ec-6b2b8b6227c3', 'bucket': {'name': 'botoencryption', 'ownerIdentity': {'principalId': 'AQAY2T4VG23S4'}, 'arn': 'arn:aws:s3:::botoencryption'}, 'object': {'key': 'bucket_encrypt.png', 'size': 533997, 'eTag': '858022cad438c4fdae077839eeb0b1dd', 'sequencer': '006A62175DE39B3A27'}}}]}
+
+pprint.pprint(d)

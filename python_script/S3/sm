@@ -1,0 +1,13 @@
+{'ResponseMetadata': {'HTTPHeaders': {'date': 'Wed, 22 Jul 2026 18:59:35 GMT',
+                                      'server': 'AmazonS3',
+                                      'transfer-encoding': 'chunked',
+                                      'x-amz-id-2': 'HfUEc2lq2dcE8gXtJNwz94g+5KkJP5I7NiDmIubW379wfNrCntGqfBM4GDa9W/1NvtA7bM7FuS1tvzhHRjao9EHC+2EXRixv',
+                                      'x-amz-request-id': 'Y4R6RH5FC2JY742N'},
+                      'HTTPStatusCode': 200,
+                      'HostId': 'HfUEc2lq2dcE8gXtJNwz94g+5KkJP5I7NiDmIubW379wfNrCntGqfBM4GDa9W/1NvtA7bM7FuS1tvzhHRjao9EHC+2EXRixv',
+                      'RequestId': 'Y4R6RH5FC2JY742N',
+                      'RetryAttempts': 0},
+ 'ServerSideEncryptionConfiguration': {'Rules': [{'ApplyServerSideEncryptionByDefault': {'KMSMasterKeyID': 'arn:aws:kms:ap-south-1:562123137656:key/b5f35c83-5251-4512-a285-f58fefb7eb83',
+                                                                                         'SSEAlgorithm': 'aws:kms'},
+                                                  'BlockedEncryptionTypes': {'EncryptionType': ['SSE-C']},
+                                                  'BucketKeyEnabled': True}]}}
