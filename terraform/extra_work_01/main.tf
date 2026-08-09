@@ -34,7 +34,6 @@ resource "aws_security_group" "alb-access" {
   }
 }
 
-
 # ============================================================
 # 3. EC2 / WEB SERVER SECURITY GROUP
 # ============================================================
@@ -150,7 +149,6 @@ resource "aws_lb" "alb" {
   }
 }
 
-
 # ============================================================
 # 9. HTTPS LISTENER
 # ============================================================
@@ -188,7 +186,6 @@ resource "aws_lb_listener" "alb-http" {
     }
   }
 }
-
 
 
 # ============================================================
@@ -240,16 +237,6 @@ resource "aws_instance" "webserver" {
 
   tags = {
     Name = "${var.project_name}-${var.project_environment}-webserver-${count.index + 1}"
-  }
-}
-
-resource "aws_eip" "webserver" {
-  count   = 3
-  instance = aws_instance.webserver[count.index].id
-  domain   = "vpc"
-
-  tags = {
-    Name = "${var.project_name}-${var.project_environment}-webserver[count.index + 1]"
   }
 }
 
