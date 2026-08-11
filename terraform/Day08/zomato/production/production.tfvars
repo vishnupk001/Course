@@ -1,0 +1,7 @@
+aws_region="ap-south-1" 
+project_name="zomato" 
+project_environment="production"
+instance_type="t2.micro" 
+instance_ami_id="ami-00d2dbb426772b03a"
+domain_name="dev.vpkdevops.online"
+hostname="webapp"
