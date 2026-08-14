@@ -1,0 +1,48 @@
+01. Terraform Providers
+02. Variables
+03. Data Sources
+04. VPC
+05. Internet Gateway
+06. Public Subnets
+07. Private Subnets
+08. Route Tables
+09. Route Table Associations
+10. Elastic IP
+11. NAT Gateway
+
+12. IAM Role
+13. IAM Instance Profile
+14. Key Pair
+
+15. ALB Security Group
+16. EC2 Security Group
+17. Security Group Rules
+
+18. ACM Certificate
+
+19. Launch Template
+20. Target Group
+21. Application Load Balancer
+22. Auto Scaling Group
+23. Target Group / ASG Integration
+24. ALB HTTPS Listener
+25. ALB HTTP Listener / Redirect
+
+26. CloudWatch
+27. CloudWatch Alarms
+28. Auto Scaling Policies
+
+29. S3 Log Bucket
+30. ALB Access Logging
+
+31. Route 53 Hosted Zone
+32. Route 53 DNS Record
+
+33. VPC Flow Logs
+34. CloudTrail
+35. GuardDuty
+36. AWS WAF
+
+37. CloudFront (Optional)
+38. Secrets Manager (Optional)
+39. AWS Backup (Optional)
