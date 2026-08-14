@@ -73,6 +73,9 @@ resource "aws_route_table_association" "public" {
 }
 
 resource "aws_eip" "nat" {
+
+  count = var.enable_natgw ? 1 : 0
+
   domain   = "vpc"
   tags = {
     Name = "${var.project_name}-${var.project_environment}-nat"
@@ -80,7 +83,10 @@ resource "aws_eip" "nat" {
 }
 
 resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.nat.id
+ 
+  count = var.enable_natgw ? 1 : 0
+
+  allocation_id = aws_eip.nat[0].id
   subnet_id     = aws_subnet.public_subnet[1].id
 
   tags = {
@@ -93,15 +99,19 @@ resource "aws_nat_gateway" "nat" {
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat.id
-  }
-
   tags = {
     Name = "${var.project_name}-${var.project_environment}-private"
     Type = "private"
   }
+}
+
+resource "aws_route" "nat_gw_route" {
+
+  count = var.enable_natgw ? 1 : 0
+
+  route_table_id              = aws_route_table.private.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id       = aws_nat_gateway.nat[0].id
 }
 
 resource "aws_route_table_association" "private" {
