@@ -302,7 +302,7 @@ resource "aws_launch_template" "lt" {
   ]
 
   tags = {
-    Name = "${var.project_name}-${var.project_environment}"
+    Name = "${var.project_name}-${var.project_environment}-webserver"
   }
 
 }
@@ -357,7 +357,7 @@ resource "aws_lb" "alb" {
 
 resource "aws_autoscaling_group" "asg" {
 
-  count              = 3
+  
   vpc_zone_identifier = aws_subnet.private_subnet[*].id
   desired_capacity   = 3
   max_size           = 3
@@ -367,8 +367,11 @@ resource "aws_autoscaling_group" "asg" {
     id      = aws_launch_template.lt.id
     version = "$Latest"
   }
-  tags = {
-    Name = "${var.project_name}-${var.project_environment}-asg"
+  tag {
+    key                 = "Name"
+    value               = "${var.project_name}-${var.project_environment}-webserver"
+    propagate_at_launch = true
+
   }
 
 }
