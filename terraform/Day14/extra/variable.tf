@@ -59,51 +59,20 @@ variable "asg_capacity" {
   })
 }
 
-variable "health_check_port" {
-  description = "health check port"
-  type        = string
-}
+variable "target_group" {
+  description = "target_group configuration"
 
-variable "deregistration_delay" {
-  description = "deregistration delay"
-  type        = string
-}
-
-
-variable "target_type" {
-  description = "target_type"
-  type        = string
-}
-
-variable "health_check_path" {
-  description = "health_check_path"
-  type        = string
-}
-
-
-variable "health_check_interval" {
-  description = "health_check_interval"
-  type        = string
-}
-
-variable "health_check_timeout" {
-  description = "health_check_timeout"
-  type        = string
-}
-
-variable "health_check_healthy_threshold" {
-  description = "health_check_healthy_threshold"
-  type        = string
-}
-
-variable "health_check_unhealthy_threshold" {
-  description = "health_check_unhealthy_threshold"
-  type        = string
-}
-
-variable "health_check_protocol" {
-  description = "health_check_protocol"
-  type        = string
+  type = object({
+    port         = number
+    deregistration_delay         = number
+    target_type               = string
+    path         =  string
+    interval     = number
+    timeout      = number
+    healthy_threshold = number
+    unhealthy_threshold = number
+    protocol = string
+  })
 }
 
 variable "domain_name" {

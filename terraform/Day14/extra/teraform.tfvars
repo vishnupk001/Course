@@ -8,6 +8,9 @@ debug_backend = true
 bastion_instance_type = "t3.micro"
 bastion_ami_id = "ami-00d2dbb426772b03a"
 backend_instance_type = "t3.micro"
+domain_name="vpkdevops.online"
+hostname="webapp"
+
 
 asg_capacity = {
   min_size         = 1
@@ -15,14 +18,15 @@ asg_capacity = {
   desired_capacity = 2
 }
 
-health_check_port = 80
-deregistration_delay = 10
-target_type = "instance"
-health_check_path = "/health.html"
-health_check_interval = 30
-health_check_timeout = 2
-health_check_healthy_threshold = 2
-health_check_unhealthy_threshold = 2
-health_check_protocol = "HTTP"
-domain_name="vpkdevops.online"
-hostname="webapp"
+target_group ={
+  port                   = 80
+  deregistration_delay   = 10
+  target_type            = "instance"
+  path                   =  "/health.html"
+  interval               = 30
+  timeout                = 2
+  healthy_threshold      = 2
+  unhealthy_threshold.   = 2
+  protocol               = "HTTP"
+}
+

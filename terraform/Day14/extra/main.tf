@@ -313,19 +313,19 @@ resource "aws_autoscaling_group" "application" {
  resource "aws_lb_target_group" "application" {
 
   name     = "${var.project_name}-${var.project_environment}"
-  port     = var.health_check_port
+  port     = var.target_group.port
   protocol = "HTTP"
   vpc_id = aws_vpc.main.id
-  deregistration_delay  = var.deregistration_delay
-  target_type = var.target_type
+  deregistration_delay  = var.target_group.deregistration_delay
+  target_type = var.target_group.target_type
   health_check {
     enabled = true
-    path = var.health_check_path
-    protocol = var.health_check_protocol
-    interval = var.health_check_interval
-    timeout = var.health_check_timeout
-    healthy_threshold = var.health_check_healthy_threshold
-    unhealthy_threshold = var.health_check_unhealthy_threshold
+    path = var.target_group.path
+    protocol = var.target_group.protocol
+    interval = var.target_group.interval
+    timeout = var.target_group.timeout
+    healthy_threshold = var.target_group.healthy_threshold
+    unhealthy_threshold = var.target_group.unhealthy_threshold
   }
 
   tags = {
