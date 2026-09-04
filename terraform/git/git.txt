@@ -1,0 +1,138 @@
+$ sudo yum install git -y
+$ mkdir git-class
+$ cd git-class
+$ git init
+$ tree .git
+$ echo "i am running linux" > redhat.txt
+$ echo "i am running linux" > centos.txt
+$ echo "i am running linux" > rocky.txt
+$ git config user.name "Vishnu"
+$ git config user.email "vishnupk@gmail.com"
+$ git add centos.txt
+
+$ git ls-files -s
+100644 ea32c5244f54583be62b6262d57b9d23f1de90c9 0	centos.txt
+
+$ git cat-file -p ea32c5244f54583be62b6262d57b9d23f1de90c9
+i am running linux
+
+$ git add redhat.txt
+
+$ git ls-files -s
+100644 ea32c5244f54583be62b6262d57b9d23f1de90c9 0	centos.txt
+100644 ea32c5244f54583be62b6262d57b9d23f1de90c9 0	redhat.txt
+
+$ git add rocky.txt
+
+$ git ls-files -s
+100644 ea32c5244f54583be62b6262d57b9d23f1de90c9 0	centos.txt
+100644 ea32c5244f54583be62b6262d57b9d23f1de90c9 0	redhat.txt
+100644 ea32c5244f54583be62b6262d57b9d23f1de90c9 0	rocky.txt
+
+$ echo "i am running redhat linux" >> redhat.txt
+$ cat redhat.txt 
+i am running linux
+i am running redhat linux
+
+$ git add redhat.txt
+$ tree .git/
+.git/
+├── HEAD
+├── config
+├── description
+├── hooks
+│   ├── applypatch-msg.sample
+│   ├── commit-msg.sample
+│   ├── fsmonitor-watchman.sample
+│   ├── post-update.sample
+│   ├── pre-applypatch.sample
+│   ├── pre-commit.sample
+│   ├── pre-merge-commit.sample
+│   ├── pre-push.sample
+│   ├── pre-rebase.sample
+│   ├── pre-receive.sample
+│   ├── prepare-commit-msg.sample
+│   ├── push-to-checkout.sample
+│   ├── sendemail-validate.sample
+│   └── update.sample
+├── index
+├── info
+│   └── exclude
+├── objects
+│   ├── db
+│   │   └── 02a51a1c7ae859e352190cc14a6b6c56928262
+│   ├── ea
+│   │   └── 32c5244f54583be62b6262d57b9d23f1de90c9
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+    └── tags
+
+10 directories, 21 files
+
+
+$ git ls-files -s
+100644 ea32c5244f54583be62b6262d57b9d23f1de90c9 0	centos.txt
+100644 db02a51a1c7ae859e352190cc14a6b6c56928262 0	redhat.txt
+100644 ea32c5244f54583be62b6262d57b9d23f1de90c9 0	rocky.txt
+
+$ git ls-files -s
+100644 0384b44140241d5f865e4c7b590793f735ac21c0 0	centos.txt
+100644 db02a51a1c7ae859e352190cc14a6b6c56928262 0	redhat.txt
+100644 91550361131c28ddb4d5b9074582fc35c8658f63 0	rocky.txt
+
+$ tree .git
+.git
+├── HEAD
+├── config
+├── description
+├── hooks
+│   ├── applypatch-msg.sample
+│   ├── commit-msg.sample
+│   ├── fsmonitor-watchman.sample
+│   ├── post-update.sample
+│   ├── pre-applypatch.sample
+│   ├── pre-commit.sample
+│   ├── pre-merge-commit.sample
+│   ├── pre-push.sample
+│   ├── pre-rebase.sample
+│   ├── pre-receive.sample
+│   ├── prepare-commit-msg.sample
+│   ├── push-to-checkout.sample
+│   ├── sendemail-validate.sample
+│   └── update.sample
+├── index
+├── info
+│   └── exclude
+├── objects
+│   ├── 03
+│   │   └── 84b44140241d5f865e4c7b590793f735ac21c0
+│   ├── 91
+│   │   └── 550361131c28ddb4d5b9074582fc35c8658f63
+│   ├── db
+│   │   └── 02a51a1c7ae859e352190cc14a6b6c56928262
+│   ├── ea
+│   │   └── 32c5244f54583be62b6262d57b9d23f1de90c9
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+    └── tags
+
+12 directories, 23 files
+
+$$ git cat-file -p 0384b44140241d5f865e4c7b590793f735ac21c0
+i am running linux
+i am running centos linux
+
+$ git cat-file -p 91550361131c28ddb4d5b9074582fc35c8658f63
+i am running linux
+i am running rocky linux
+
+$ git cat-file -p db02a51a1c7ae859e352190cc14a6b6c56928262
+i am running linux
+i am running redhat linux
+
+$ git cat-file -p ea32c5244f54583be62b6262d57b9d23f1de90c9
+i am running linux
