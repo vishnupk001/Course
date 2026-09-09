@@ -1,0 +1,119 @@
+$ git log
+commit 36a9e8ea61e996e8ee6bf050d3ec64d97dc4c255 (HEAD -> main)
+Author: vishnu <vishnupk@gmail.com>
+Date:   Wed Sep 9 09:43:43 2026 +0000
+
+    dns record added
+
+commit 76d78793923af969688c654026d3c71224bc6b02
+Author: vishnu <vishnupk@gmail.com>
+Date:   Wed Sep 9 09:31:12 2026 +0000
+
+    webserver created'
+
+commit 02013854b81e6f754a40a940e1aa5a70d407d93c
+Author: vishnu <vishnupk@gmail.com>
+Date:   Wed Sep 9 09:24:06 2026 +0000
+
+    sg webserver created
+
+commit f237e53c0beb61c9cde44f9dae74c62185d6828b
+Author: vishnu <vishnupk@gmail.com>
+Date:   Wed Sep 9 09:10:10 2026 +0000
+
+    initial commit
+
+
+$ git cat-file -p 36a9e8ea61e996e8ee6bf050d3ec64d97dc4c255
+tree 86ebe7186358744e8e57b0d68f58bbe02256e2ee
+parent 76d78793923af969688c654026d3c71224bc6b02
+author vishnu <vishnupk@gmail.com> 1788947023 +0000
+committer vishnu <vishnupk@gmail.com> 1788947023 +0000
+
+dns record added
+
+
+$ git cat-file -p 86ebe7186358744e8e57b0d68f58bbe02256e2ee
+
+100644 blob 8bdfa91ff23a03581de9b9eb835f61d6a38d2c1b	.gitignore
+100644 blob 438bee15d59d69db73159a908a2cf795fa9bbddd	datasource.tf
+100644 blob 61315d1b1de85581898a0c4cf6cd91fe750066b8	main.tf
+100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391	output.tf
+100644 blob ee7e8a67449277822fa85940be7494d8182629c7	prodiver.tf
+100644 blob 31bdc8f04b35f1be097374ac9f2eeaeb15d66227	setup.sh
+100644 blob ff8728ea43fc4b7e4d75470aa4c14f08c80634cc	terraform.tfstate
+100644 blob f52c270a4871230704d723ba2ea504b604019e33	terraform.tfstate.backup
+100644 blob 7538c759c2b3590dbad77a3e53c3947a1a126564	terraform.tfvars
+100644 blob 05675060be55f38e797cceab55343c62fc6d5d9e	variables.tf
+
+
+$ git cat-file -p 61315d1b1de85581898a0c4cf6cd91fe750066b8
+
+resource "aws_security_group" "webserver" {
+  name        = "${var.project_name}-${var.project_environment}-webserver"
+  description = "${var.project_name}-${var.project_environment}-webserver"
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-${var.project_environment}-webserver"
+  }
+}
+
+resource "aws_security_group_rule" "webserver-http" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.webserver.id
+}
+
+resource "aws_security_group_rule" "webserver-https" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.webserver.id
+}
+
+resource "aws_security_group_rule" "ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.webserver.id
+}
+
+resource "aws_instance" "webserver" {
+
+  ami                    = var.instance_ami_id
+  instance_type          = var.instance_type
+  key_name               = "vpk_devops"
+  vpc_security_group_ids = [aws_security_group.webserver.id]
+  user_data = file("setup.sh")
+  tags = {
+    Name        = "${var.project_name}-${var.project_environment}-webserver"
+  }
+  lifecycle { 
+      create_before_destroy = true 
+   }
+}
+resource "aws_route53_record" "www" {
+  zone_id = data.aws_route53_zone.domain.zone_id
+  name    = "${var.hostname}.${var.domain_name}"
+  type    = "A"
+  ttl     = 300
+  records = [aws_instance.webserver.public_ip]
+}
