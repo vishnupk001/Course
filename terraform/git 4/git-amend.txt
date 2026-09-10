@@ -1,0 +1,97 @@
+$ git commit -m "sg rule 22 deleted"
+[main e9071f3] sg rule 22 deleted
+ 1 file changed, 11 insertions(+)
+
+$ git log
+
+commit e9071f3463fe6e23ef1ce5b1afab775e3d01138f (HEAD -> main)
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:42:52 2026 +0000
+
+    sg rule 22 deleted
+
+commit a89f264b79fb2a5cef896d3dd5b564e4aa3f50e5
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:41:37 2026 +0000
+
+    sg rule 443 added
+
+commit e8bd19f1476d555167a539d3fb2dd2c2d08a2989
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:40:36 2026 +0000
+
+    sg rule 80 added
+
+commit 57a44162e937ece2ff0466e077060dda72260498
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:38:28 2026 +0000
+
+    sg created
+
+commit 1da7666059b365e4d2a73070d92d7cda7fb0e673
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:34:56 2026 +0000
+
+    initial commit
+
+=======================================================================================
+
+$ git commit --amend -m "sg rule 22 added"
+
+[main 15a3145] sg rule 22 added
+ Date: Thu Sep 10 12:42:52 2026 +0000
+ 1 file changed, 11 insertions(+)
+
+$ git log
+
+commit 15a3145a63607c184beb66cd5f69bde2b1ffac8f (HEAD -> main)
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:42:52 2026 +0000
+
+    sg rule 22 added
+
+commit a89f264b79fb2a5cef896d3dd5b564e4aa3f50e5
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:41:37 2026 +0000
+
+    sg rule 443 added
+
+commit e8bd19f1476d555167a539d3fb2dd2c2d08a2989
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:40:36 2026 +0000
+
+    sg rule 80 added
+
+commit 57a44162e937ece2ff0466e077060dda72260498
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:38:28 2026 +0000
+
+    sg created
+
+commit 1da7666059b365e4d2a73070d92d7cda7fb0e673
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:34:56 2026 +0000
+
+    initial commit
+
+=========================================================================
+reset --hard 
+=========================================================================
+
+$ git reset --hard 57a44162e937ece2ff0466e077060dda72260498
+HEAD is now at 57a4416 sg created
+
+$ git log
+
+commit 57a44162e937ece2ff0466e077060dda72260498 (HEAD -> main)
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:38:28 2026 +0000
+
+    sg created
+
+commit 1da7666059b365e4d2a73070d92d7cda7fb0e673
+Author: vishnu <vishnu@gmail.com>
+Date:   Thu Sep 10 12:34:56 2026 +0000
+
+    initial commit
+
