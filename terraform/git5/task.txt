@@ -1,0 +1,361 @@
+
+=================================================
+soft reset
+=================================================
+
+$ git log --oneline
+6d6456d (HEAD -> main) Webserver Sg 22 Rule Added
+953148a Webserver Sg 443 Rule Added
+f77b9f8 Webserver Sg 80 Rule Added
+ee39d76 Webserver Sg Created
+5e3f412 Initial Commit
+
+$ git reset --soft ee39d76
+
+$ cat .git/refs/heads/main 
+ee39d76393e817a2a2ec28438fd732b3bf8494ee
+
+$ cat main.tf 
+
+resource "aws_security_group" "webserver" {
+
+  name        = "${var.project_name}-${var.project_environment}-webserver"
+  description = "${var.project_name}-${var.project_environment}-webserver"
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-${var.project_environment}-webserver"
+  }
+}
+
+resource "aws_security_group_rule" "webserver_http" {
+
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.webserver.id
+}
+
+resource "aws_security_group_rule" "webserver_https" {
+
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.webserver.id
+}
+
+resource "aws_security_group_rule" "webserver_ssh" {
+
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.webserver.id
+}
+
+
+$ git log --oneline
+
+fb6e92e (HEAD -> main) Webserver Sg Rules Added
+ee39d76 Webserver Sg Created
+5e3f412 Initial Commit
+
+=================================================
+soft reset add setup.sh file
+=================================================
+
+$ git log
+commit aad4e84f105b58bb61e58e5324133efdbf9b42fb (HEAD -> main)
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 10:01:00 2026 +0000
+
+    Webserver EC2 Created
+
+commit fb6e92ef3807dbd6f22834d08f4ee5103644f847
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 09:51:31 2026 +0000
+
+    Webserver Sg Rules Added
+
+commit ee39d76393e817a2a2ec28438fd732b3bf8494ee
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 09:30:04 2026 +0000
+
+    Webserver Sg Created
+
+commit 5e3f4121081c8305aa00df8358d6767ef294d8fb
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 09:27:00 2026 +0000
+
+    Initial Commit
+
+$ git reset --soft fb6e92ef3807dbd6f22834d08f4ee5103644f847
+
+$ git log
+commit fb6e92ef3807dbd6f22834d08f4ee5103644f847 (HEAD -> main)
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 09:51:31 2026 +0000
+
+    Webserver Sg Rules Added
+
+commit ee39d76393e817a2a2ec28438fd732b3bf8494ee
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 09:30:04 2026 +0000
+
+    Webserver Sg Created
+
+commit 5e3f4121081c8305aa00df8358d6767ef294d8fb
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 09:27:00 2026 +0000
+
+    Initial Commit
+
+$ git add .
+
+$ git commit -m  "Webserver EC2 Created"
+
+[main f05a037] Webserver EC2 Created
+ 4 files changed, 47 insertions(+)
+ create mode 100644 setup.sh
+
+$ git log
+commit f05a037e76744b85e60779d35d01b7f191149f07 (HEAD -> main)
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 10:11:55 2026 +0000
+
+    Webserver EC2 Created
+
+commit fb6e92ef3807dbd6f22834d08f4ee5103644f847
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 09:51:31 2026 +0000
+
+    Webserver Sg Rules Added
+
+commit ee39d76393e817a2a2ec28438fd732b3bf8494ee
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 09:30:04 2026 +0000
+
+    Webserver Sg Created
+
+commit 5e3f4121081c8305aa00df8358d6767ef294d8fb
+Author: vishnu <vishnu@gmail.com>
+Date:   Fri Sep 11 09:27:00 2026 +0000
+
+    Initial Commit
+
+=================================================
+amend add setup.sh
+=================================================
+
+$ git log --oneline
+aad4e84 (HEAD -> main) Webserver EC2 Created
+fb6e92e Webserver Sg Rules Added
+ee39d76 Webserver Sg Created
+5e3f412 Initial Commit
+
+$ git add .
+
+$ git commit --amend --no-edit
+[main ab57510] Webserver EC2 Created
+ Date: Fri Sep 11 10:01:00 2026 +0000
+ 4 files changed, 47 insertions(+)
+ create mode 100644 setup.sh
+
+$ git log --oneline
+ab57510 (HEAD -> main) Webserver EC2 Created
+fb6e92e Webserver Sg Rules Added
+ee39d76 Webserver Sg Created
+5e3f412 Initial Commit
+
+$ git cat-file -p ab57510
+
+tree 8f110b2a7a683b6a22a495f21c98ae3f2d391b84
+parent fb6e92ef3807dbd6f22834d08f4ee5103644f847
+author vishnu <vishnu@gmail.com> 1789120860 +0000
+committer vishnu <vishnu@gmail.com> 1789122191 +0000
+
+Webserver EC2 Created
+
+$ git cat-file -p 8f110b2a7a683b6a22a495f21c98ae3f2d391b84
+
+100644 blob 8bdfa91ff23a03581de9b9eb835f61d6a38d2c1b	.gitignore
+100644 blob 39d112b558b2d62baec33babcbf3493ea14035bd	backend.tf
+100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391	datasource.tf
+100644 blob 20bb8402d143cd09b4adbd92ef86b0b9af82380c	main.tf
+100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391	output.tf
+100644 blob ee7e8a67449277822fa85940be7494d8182629c7	prodiver.tf
+100644 blob 43ffb35142e59fe849ef6314d3c43dce210bfe3d	setup.sh
+100644 blob 9ec74e61aaff26bcb18be5d742a0c600d80a9219	terraform.tfvars
+100644 blob 54f41e0a75d742dfc9aacd70c73d98c82f063f3c	variables.tf
+
+$ git cat-file -p 20bb8402d143cd09b4adbd92ef86b0b9af82380c
+
+resource "aws_security_group" "webserver" {
+
+  name        = "${var.project_name}-${var.project_environment}-webserver"
+  description = "${var.project_name}-${var.project_environment}-webserver"
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-${var.project_environment}-webserver"
+  }
+}
+
+resource "aws_security_group_rule" "webserver_http" {
+
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.webserver.id
+}
+
+resource "aws_security_group_rule" "webserver_https" {
+
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.webserver.id
+}
+
+resource "aws_security_group_rule" "webserver_ssh" {
+
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.webserver.id
+}
+
+resource "aws_instance" "webserver" {
+
+  ami                    = var.instance_ami_id
+  instance_type          = var.instance_type
+  key_name               = "vpk_devops"
+  vpc_security_group_ids = [aws_security_group.webserver.id]
+  user_data              = file("setup.sh")
+  tags = {
+    Name = "${var.project_name}-${var.project_environment}-webserver"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+
+=================================================
+branch and switch command
+=================================================
+
+
+$ git branch demo ee39d76393e817a2a2ec28438fd732b3bf8494ee
+
+$ tree .git/refs/
+.git/refs/
+├── heads
+│   ├── demo
+│   └── main
+└── tags
+
+2 directories, 2 files
+
+$ git branch 
+  demo
+* main
+
+$ git branch -v
+  demo ee39d76 Webserver Sg Created
+* main ab57510 Webserver EC2 Created
+
+$ git switch demo
+Switched to branch 'demo'
+
+$ git branch -v
+* demo ee39d76 Webserver Sg Created
+  main ab57510 Webserver EC2 Created
+
+$ ls -l
+total 20
+-rw-r--r--. 1 ec2-user ec2-user 146 Sep 11 09:28 backend.tf
+-rw-r--r--. 1 ec2-user ec2-user   0 Sep 11 09:18 datasource.tf
+-rw-r--r--. 1 ec2-user ec2-user 446 Sep 11 10:34 main.tf
+-rw-r--r--. 1 ec2-user ec2-user   0 Sep 11 09:18 output.tf
+-rw-r--r--. 1 ec2-user ec2-user 166 Sep 11 09:21 prodiver.tf
+-rw-r--r--. 1 ec2-user ec2-user 101 Sep 11 10:34 terraform.tfvars
+-rw-r--r--. 1 ec2-user ec2-user 269 Sep 11 10:34 variables.tf
+
+$ git checkout main
+Switched to branch 'main'
+
+$ git branch 
+  demo
+* main
+
+$ ls -l
+total 24
+-rw-r--r--. 1 ec2-user ec2-user  146 Sep 11 09:28 backend.tf
+-rw-r--r--. 1 ec2-user ec2-user    0 Sep 11 09:18 datasource.tf
+-rw-r--r--. 1 ec2-user ec2-user 1731 Sep 11 10:38 main.tf
+-rw-r--r--. 1 ec2-user ec2-user    0 Sep 11 09:18 output.tf
+-rw-r--r--. 1 ec2-user ec2-user  166 Sep 11 09:21 prodiver.tf
+-rw-r--r--. 1 ec2-user ec2-user  380 Sep 11 10:38 setup.sh
+-rw-r--r--. 1 ec2-user ec2-user  180 Sep 11 10:38 terraform.tfvars
+-rw-r--r--. 1 ec2-user ec2-user  452 Sep 11 10:38 variables.tf
+
+
+$ git log --oneline
+ab57510 (HEAD -> main) Webserver EC2 Created
+fb6e92e Webserver Sg Rules Added
+ee39d76 (demo) Webserver Sg Created
+5e3f412 Initial Commit
+
+$ git branch -D demo
+Deleted branch demo (was ee39d76).
+
+$ git log --oneline
+ab57510 (HEAD -> main) Webserver EC2 Created
+fb6e92e Webserver Sg Rules Added
+ee39d76 Webserver Sg Created
+5e3f412 Initial Commit
+
+$ tree .git/refs/
+.git/refs/
+├── heads
+│   └── main
+└── tags
+
+2 directories, 1 file
+
+
+
+

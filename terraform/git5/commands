@@ -1,0 +1,46 @@
+911  mkdir zomato-production-git
+  912  cd zomato-production-git
+  913  touch main.tf variables.tf terraform.tfvars prodiver.tf datasource.tf output.tf
+  914  vim variables.tf 
+  915  vim terraform.tfvars 
+  916  vim prodiver.tf 
+  917  terraform init
+  918  vim backend.tf
+  919  vim variables.tf 
+  920  terraform init
+  958  git init
+  959  git branch -m main
+  960  git config user.name “vishnu"
+  961  git config user.name "vishnu"
+  962  git config user.email "vishnu@gmail.com"
+  963  git status
+  964  vim .gitignore
+  965  git status
+  966  git add .
+  967  git commit -m "initial commit"
+  968  git log
+  969  vim main.tf 
+  970  terraform fmt
+  971  terraform apply
+  972  git status
+  973  git add .
+  974  git commit -m "sg created"
+  975  git log
+  976  vim main.tf 
+  977  terraform apply -auto-approve
+  978  git add .
+  979  git commit -m "sg rule 80 added"
+  980  vim main.tf 
+  981  terraform apply -auto-approve
+  982  git add .
+  983  git commit -m "sg rule 443 added"
+  984  vim main.tf 
+  985  terraform apply -auto-approve
+  986  git add .
+  987  git commit -m "sg rule 22 deleted"
+  988  git log
+  989  git commit --amend -m "sg rule 22 added"
+  990  git log
+  991  git reset --hard 15a3145a63607c184beb66cd5f69bde2b1ffac8f
+  992  git log
+  993  git reset --hard a89f264b79fb2a5cef8
